@@ -14,31 +14,31 @@
  */
 
 // Admin menü kiegészítése saját gombbal
-add_action('admin_menu', 'netgreatpuginsdfdb');
+add_action('admin_menu', 'dfdb_netgreatpuginsdfdb');
 
 // Saját menü gombok létrehozása
-function netgreatpuginsdfdb() {
-    add_menu_page( 'Direct Free Downloads Button', 'DFDB', 'read', 'netgreat_plugins', 'netgreat_plugins', plugins_url('img\logo_white.png',__FILE__), 61 );
+function dfdb_netgreatpuginsdfdb() {
+    add_menu_page( 'Direct Free Downloads Button', 'DFDB', 'read', 'dfdb_netgreat_plugins', 'dfdb_netgreat_plugins', plugins_url('img\logo_white.png',__FILE__), 61 );
 };
 
 //Stíluslap hozzáadása - BOOTSTRAP CSS
-function adambootstrapcssadd() {
-    wp_register_style('adambootstrapcssadd', plugins_url('css\bootstrap.min.css',__FILE__ ));
-    wp_enqueue_style('adambootstrapcssadd');
+function dfdb_adambootstrapcssadd() {
+    wp_register_style('dfdb_adambootstrapcssadd', plugins_url('css\bootstrap.min.css',__FILE__ ));
+    wp_enqueue_style('dfdb_adambootstrapcssadd');
 };
 
-add_action( 'admin_init','adambootstrapcssadd');
+add_action( 'admin_init','dfdb_adambootstrapcssadd');
 
 //Képek változókkal
 $logo100 = plugins_url('img\logo-100.png',__FILE__);
 
 // Saját oldal tartalma
-function netgreat_plugins() {
+function dfdb_netgreat_plugins() {
     include 'inc/bemutatkozo.php';
 };
 
 // Direct Free Downloads Button
-function direct_free_downloads_button( $button )
+function dfdb_direct_free_downloads_button( $button )
 {
     global $product;
 
@@ -61,13 +61,13 @@ function direct_free_downloads_button( $button )
     }
     return $button;
 }
-add_filter('woocommerce_loop_add_to_cart_link', 'direct_free_downloads_button', 100);
+add_filter('woocommerce_loop_add_to_cart_link', 'dfdb_direct_free_downloads_button', 100);
 
 /**
  * Handles downloading of free Downloadable products
  * @return [type] [description]
  */
-function netgreatfreedownloadbuttonproductfile()
+function dfdb_netgreatfreedownloadbuttonproductfile()
 {
     $product_id    = absint( $_GET['download_file'] );
     $_product      = wc_get_product( $product_id );
@@ -78,12 +78,12 @@ function netgreatfreedownloadbuttonproductfile()
 }
 
 if ( isset( $_GET['download_file'] ) && isset( $_GET['key'] ) && $_GET['free'] ) {
-    add_action( 'init', 'netgreatfreedownloadbuttonproductfile' );
+    add_action( 'init', 'dfdb_netgreatfreedownloadbuttonproductfile' );
 }
 
 //SAJAT WOOCOMMERCE LETOLTES BUTTON
 // function that runs when shortcode is called
-function netgreatfreedownloadshortcode() { 
+function dfdb_netgreatfreedownloadshortcode() { 
 
     global $product;
     if( $product->is_downloadable() && $product->get_price() == 0 )
@@ -97,4 +97,4 @@ function netgreatfreedownloadshortcode() {
     }
 }
 // register shortcode: woofreedownload
-add_shortcode('woofreedownload', 'netgreatfreedownloadshortcode');
+add_shortcode('woofreedownload', 'dfdb_netgreatfreedownloadshortcode');
